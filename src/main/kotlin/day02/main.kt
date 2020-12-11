@@ -19,7 +19,7 @@ fun solve1(lines: List<String>): String {
         listOf('7', '8', '9'),
     )
 
-    return walkKeypad(lines, keypad)
+    return walkKeypad(lines, keypad, 1, 1)
 }
 
 fun solve2(lines: List<String>): String {
@@ -31,15 +31,17 @@ fun solve2(lines: List<String>): String {
         listOf(null, null, 'D', null, null),
     )
 
-    return walkKeypad(lines, keypad)
+    return walkKeypad(lines, keypad, 0, 2)
 }
 
 private fun walkKeypad(
     lines: List<String>,
-    keypad: Keypad
+    keypad: Keypad,
+    startX: Int,
+    startY: Int
 ): String {
-    var x = 1
-    var y = 1
+    var x = startX
+    var y = startY
 
     var code = ""
 
