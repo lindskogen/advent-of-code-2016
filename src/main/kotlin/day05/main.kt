@@ -7,7 +7,7 @@ import kotlin.time.measureTimedValue
 import java.math.BigInteger
 import java.security.MessageDigest
 
-fun md5(input:String): String {
+fun md5(input: String): String {
     val md = MessageDigest.getInstance("MD5")
     return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
 }
@@ -30,7 +30,7 @@ fun solve1(s: String): String {
     var n = 0
 
     while (st.length < 8) {
-        val res = md5(s+n)
+        val res = md5(s + n)
         if (res.startsWith("00000")) {
             st += res[5]
         }
@@ -48,10 +48,10 @@ fun solve2(s: String): String {
     var n = 0
 
     while (found < 8) {
-        val res = md5(s+n)
+        val res = md5(s + n)
         if (res.startsWith("00000")) {
-            try {
-                val index = ("" + res[5]).toInt()
+            if (res[5].isDigit()) {
+                val index = res[5].toString().toInt()
 
                 if (index < 8 && st[index] == '_') {
 
@@ -59,9 +59,8 @@ fun solve2(s: String): String {
                     found++
 
                 }
-            } catch (e: NumberFormatException) {
-
             }
+
         }
         n++
     }

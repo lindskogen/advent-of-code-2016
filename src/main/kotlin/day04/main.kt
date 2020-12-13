@@ -29,11 +29,7 @@ data class Room(val encryptedName: String, val sectorId: Int, val checksum: Stri
     fun matchesChecksum(): Boolean {
         val allChars = encryptedName.replace("-", "").toCharArray().toList().sorted()
 
-        val map = mutableMapOf<Char, Int>()
-
-        allChars.forEach {
-            map.compute(it) { _, i -> (i ?: 0) + 1 }
-        }
+        val map = allChars.groupingBy { it }.eachCount()
 
         val calculatedChecksum = map.toList().sortedWith { (a, ai), (b, bi) ->
             if (bi == ai) {
